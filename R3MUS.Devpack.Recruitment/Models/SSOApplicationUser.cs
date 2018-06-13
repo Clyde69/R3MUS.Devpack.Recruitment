@@ -9,7 +9,9 @@ namespace R3MUS.Devpack.Recruitment.Models
         public string AuthToken { get; set; }
         public long CorporationId { get; set; }
 
-        public IIdentity Identity { get; private set; }
+        public IIdentity Identity { get; set; }
+
+        public ESI.Models.Character.Detail Character { get; set; }
 
         public void AddToRole(string roleName)
         {

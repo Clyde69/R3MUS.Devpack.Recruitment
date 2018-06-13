@@ -1,0 +1,62 @@
+﻿@model R3MUS.Devpack.Recruitment.Models.CharacterModel
+
+<div>
+    <h2>Character Review</h2>
+    <hr />
+	<div class="row">
+		<div class="col-md-4">
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.Id)
+				</dt>
+				<dd id="character-id">
+					@Html.DisplayFor(model => model.Id)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.Name)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Name)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.Birthday)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Birthday)
+				</dd>
+			</dl>
+		</div>
+		<div class="col-md-4">
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.Corporation.Name)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Corporation.Name)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.Alliance.Name)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Alliance.Name)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.Corporation.StartDate)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Corporation.StartDate)
+				</dd>
+			</dl>
+		</div>
+		<div class="col-md-4">
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.AccountStatus)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.AccountStatus)
+				</dd>
+			</dl>
+		</div>
+	</div>
+</div>

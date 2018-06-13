@@ -73,17 +73,17 @@
     <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\R3MUS.Devpack.Core.1.0.0.1\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
@@ -119,7 +119,8 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="R3MUS.Devpack.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\R3MUS.Devpack.Core.1.0.0.1\lib\R3MUS.Devpack.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\R3MUS.Devpack.Core\R3MUS.Devpack.Core\bin\Debug\R3MUS.Devpack.Core.dll</HintPath>
     </Reference>
     <Reference Include="R3MUS.Devpack.Discord">
       <HintPath>..\..\DiscordClient\bin\Debug\R3MUS.Devpack.Discord.dll</HintPath>
@@ -231,29 +232,88 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\Startup.Ninject.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\GetMailController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ScreenerController.cs" />
     <Compile Include="Enums\ApplicationStatus.cs" />
+    <Compile Include="Enums\Role.cs" />
+    <Compile Include="EveAuthenticationService.cs" />
+    <Compile Include="Extensions\ContentExtensions.cs" />
+    <Compile Include="Helpers\AccountStatusHelper.cs" />
+    <Compile Include="Helpers\IAccountStatusHelper.cs" />
     <Compile Include="Helpers\ISSOUserManager.cs" />
+    <Compile Include="Helpers\List.cs" />
     <Compile Include="Helpers\NinjectResolver.cs" />
+    <Compile Include="Helpers\ScopeHelper.cs" />
+    <Compile Include="Helpers\UserStore.cs" />
+    <Compile Include="IEveAuthenticationService.cs" />
+    <Compile Include="Models\AllianceModel.cs" />
+    <Compile Include="Models\CharacterContactModel.cs" />
+    <Compile Include="Models\CharacterModel.cs" />
+    <Compile Include="Models\Content\ContentAreaResponse.cs" />
+    <Compile Include="Models\Content\ContentRequest.cs" />
+    <Compile Include="Models\Content\ContentResponse.cs" />
+    <Compile Include="Models\CorporationModel.cs" />
+    <Compile Include="Models\EntityBaseModel.cs" />
+    <Compile Include="Models\MailModel.cs" />
+    <Compile Include="Models\MailSummaryModel.cs" />
     <Compile Include="Models\SSOApplicationUser.cs" />
+    <Compile Include="Profiles\CharacterDetailProfile.cs" />
+    <Compile Include="Profiles\ContactModelProfile.cs" />
+    <Compile Include="Profiles\CorporationModelProfile.cs" />
+    <Compile Include="Profiles\MailHeaderModelProfile.cs" />
+    <Compile Include="Profiles\ViewAreaContentProfile.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Configuration\ESIEndpointConfiguration.cs" />
     <Compile Include="Repositories\Configuration\HistoryConfiguration.cs" />
     <Compile Include="Repositories\Configuration\RecruitConfiguration.cs" />
     <Compile Include="Repositories\Configuration\TokenDataConfiguration.cs" />
+    <Compile Include="Repositories\Configuration\TokenShareConfiguration.cs" />
+    <Compile Include="Repositories\Configuration\ViewAreaConfiguration.cs" />
+    <Compile Include="Repositories\Configuration\ViewConfiguration.cs" />
+    <Compile Include="Repositories\ContentRepository.cs" />
     <Compile Include="Repositories\DatabaseContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Entities\ESIEndpoint.cs" />
     <Compile Include="Repositories\Entities\History.cs" />
     <Compile Include="Repositories\Entities\Recruit.cs" />
     <Compile Include="Repositories\Entities\TokenData.cs" />
     <Compile Include="Helpers\SSOUserManager.cs" />
+    <Compile Include="Repositories\Entities\TokenShare.cs" />
+    <Compile Include="Repositories\Entities\View.cs" />
+    <Compile Include="Repositories\Entities\ViewArea.cs" />
+    <Compile Include="Repositories\ESIEndpointRepository.cs" />
+    <Compile Include="Repositories\IContentRepository.cs" />
+    <Compile Include="Repositories\IDatabaseContext.cs" />
+    <Compile Include="Repositories\IESIEndpointRepository.cs" />
+    <Compile Include="Repositories\IRecruitRepository.cs" />
+    <Compile Include="Repositories\RecruitRepository.cs" />
+    <Compile Include="Resolvers\CharactersResolver.cs" />
+    <Compile Include="Services\ApplicantService.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\IApplicantService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IMailService.cs" />
+    <Compile Include="Services\MailService.cs" />
+    <Compile Include="Services\SiteContent\IPageContentService.cs" />
+    <Compile Include="Services\SiteContent\PageContentService.cs" />
+    <Compile Include="ViewModels\ApplicantPageViewModel.cs" />
+    <Compile Include="ViewModels\ApplicantViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -262,6 +322,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\eve-sso-login-black-large.png" />
+    <Content Include="Scripts\siteScripts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -292,12 +354,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Applicant\FinaliseOptions.cshtml" />
+    <Content Include="Views\Shared\_CharacterModelView.cshtml" />
+    <Content Include="Views\Shared\_EmploymentHistory.cshtml" />
+    <Content Include="Views\Shared\_MailSummaryModelView.cshtml" />
+    <Content Include="Views\Shared\_ContactsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Profiles\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Applicant\" />
+    <Folder Include="Views\Mail\" />
     <Folder Include="Views\Screener\" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +379,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

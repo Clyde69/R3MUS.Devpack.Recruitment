@@ -1,7 +1,43 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title this</h2>
 
-<p>Use this area to provide additional information.</p>
+<p class="lead">
+	Eve Online Screening has been developed to provide a trusted third party web platform that allows corporation recruiters and potential recruits to
+	interact. Since the demise of the API Key / Verification Code system &amp; this has been an area of weakness that was traditionally filled by applications that are no longer maintained.
+</p>
+
+<h3>How does it work?</h3>
+<p>
+	The <a href="https://esi.evetech.net/ui/">Eve Swagger Interface (ESI)</a> provides the functionality to query a pilot's information. 
+	Some of this is public, some is private &amp; needs the account holder to authorise the application for the information. 
+	The application requests certain "scopes", or access to types, of information about the pilot which the account holder can see prior to authorising the application. 
+	This is an improvement over the previous system where new players struggled to set up their API keys properly.
+</p>
+
+<h3>What is the process?</h3>
+<p>
+	<ol>
+		<li>			
+			Clicking the link to apply redirects you to the Eve Online sign-in page. All username &amp; password information is kept strictly away from <strong>any</strong> application other than CCP's. 
+		</li>
+		<li>
+			After you sign-on, an overview of the scopes being requested is presented for approval. At this time you are still at CCP's website &amp; nothign has been passed to the application.
+		</li>
+		<li>
+			If you choose to allow the application access to your information (this one only reads information relevant to our screening process), CCP's website redirects back to the application with an access token. 
+		</li>
+	</ol>	
+	We store this token so your information can be reviewed by a recruiter.
+</p>
+
+<h3>What is the alternative to giving this website my token?</h3>
+<p>
+	Many corporations mandate that screening of applicants takes place. ESI is now the only way that any screening can be successfully completed. 
+	You don't have to trust this website, but at some point you're probably going to have to trust one.
+</p>
+<p>
+	With our site you are able, at any time, to delete your token. We also provide a link to CCP's webpage where you can revoke authorisation, providing you assurance that you have complete control over your information. 
+	You are also able to specify which corporations recruiters can view your data.
+</p>

@@ -26,6 +26,9 @@ namespace R3MUS.Devpack.Recruitment
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/siteScripts").Include(
+                        "~/Scripts/siteScripts.js"));
         }
     }
 }

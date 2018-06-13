@@ -5,6 +5,7 @@ using R3MUS.Devpack.Recruitment.Models;
 using System;
 using System.Threading.Tasks;
 using System.Web;
+using System.Security.Claims;
 
 namespace R3MUS.Devpack.Recruitment.Helpers
 {
@@ -22,18 +23,26 @@ namespace R3MUS.Devpack.Recruitment.Helpers
 
         public static SSOUserManager Create(IdentityFactoryOptions<SSOUserManager> options, IOwinContext context)
         {
-            return new SSOUserManager(new DummyUserStore<SSOApplicationUser>());
+            return new SSOUserManager(new UserStore<SSOApplicationUser>());
+        }
+
+        public SSOApplicationUser FindByIdentity(ClaimsIdentity identity)
+        {
+            FindByIdAsync(identity.GetUserId());
+            SiteUser.Identity = identity;
+            return SiteUser;
         }
 
         public override Task<SSOApplicationUser> FindByIdAsync(string userId)
         {
-            var toon = new Devpack.ESI.Models.Character.Detail(Convert.ToInt64(userId));
+            var character = new Devpack.ESI.Models.Character.Detail(Convert.ToInt64(userId));
 
             var siteUser = new SSOApplicationUser()
             {
                 Id = userId,
-                UserName = toon.Name,
-                CorporationId = (long)toon.CorporationId
+                UserName = character.Name,
+                CorporationId = (long)character.CorporationId,
+                Character = character
             };
             
             if (HttpContext.Current != null)

@@ -6,7 +6,7 @@ namespace R3MUS.Devpack.Recruitment.Repositories.Entities
     public class History
     {
         public int Id { get; set; }
-        public long RecruitId { get; set; }
+        public int RecruitId { get; set; }
         public int StatusInt { get; set; }
         public DateTime ActionDate { get; set; }
         public ApplicationStatus Status

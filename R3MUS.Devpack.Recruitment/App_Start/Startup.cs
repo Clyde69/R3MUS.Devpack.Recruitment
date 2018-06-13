@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Web.Helpers;
 using R3MUS.Devpack.Recruitment.Helpers;
+using Ninject.Web.WebApi;
 
 [assembly: OwinStartup(typeof(R3MUS.Devpack.Recruitment.App_Start.Startup))]
 
@@ -29,6 +30,7 @@ namespace R3MUS.Devpack.Recruitment.App_Start
             ConfigureBindings(Container);
 
             config.DependencyResolver = new NinjectResolver(Container);
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(Container);
 
             ConfigureAuth(app);
 

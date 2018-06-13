@@ -183,6 +183,18 @@ _pkginfo.txt
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
 
+# Compiled source #
+###################
+**.com
+**.class
+**.dll
+**.exe
+**.o
+**.so
+**.config
+**.pdb
+**.xml
+
 # Others
 ClientBin/
 ~$*

@@ -1,0 +1,42 @@
+﻿<div class="col-md-12">
+	<h3 class="option-selector" onclick="slideToggle(this)">
+		Mail History
+		<br />
+		Click a row to view the mail
+	</h3>
+	<div style="display:none;">
+		<div class="row">
+			<div class="col-md-4">&nbsp;</div>
+			<div class="col-md-4">
+				<div class="col-sm-4">&nbsp;</div>
+				<div id="loading-mail" class="col-sm-2 loader"></div>
+			</div>
+			<div class="col-md-4">&nbsp;</div>
+		</div>
+		<table id="mail-headers" class="table" style="display:none;">
+			<tr>
+				<th>
+					Type
+				</th>
+				<th>
+					Sender
+				</th>
+				<th>
+					Recipients
+				</th>
+				<th>
+					Subject
+				</th>
+				<th>
+					TimeStamp
+				</th>
+				<th></th>
+			</tr>
+		</table>
+		<script>
+			$(document).ready(function () {
+				getMailHeaders();
+			});
+		</script>
+	</div>
+</div>
