@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3MUS.Devpack.Recruitment", "R3MUS.Devpack.Recruitment\R3MUS.Devpack.Recruitment.csproj", "{205EDBD1-BFE0-403F-891B-6108B3B78A9C}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "R3MUS.Devpac.Recruitment.Database", "R3MUS.Devpac.Recruitment.Database\R3MUS.Devpac.Recruitment.Database.sqlproj", "{4D1B746E-350F-440B-AE9F-46A00B141D93}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "R3MUS.Devpack.Recruitment.Database", "R3MUS.Devpac.Recruitment.Database\R3MUS.Devpack.Recruitment.Database.sqlproj", "{4D1B746E-350F-440B-AE9F-46A00B141D93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

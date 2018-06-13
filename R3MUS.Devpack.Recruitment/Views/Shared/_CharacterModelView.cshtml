@@ -59,4 +59,17 @@
 			</dl>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-6">			
+			Search for one or more corporations to share your information with. If the corporation is in an alliance,
+			directors of other corporations in the alliance will also be able to view your information, as in
+			some alliances this is part of the screening process. 
+			You may search by either the complete corporation name or the tag.
+			<input type="text" id="corpName" />
+			<button class="btn" onclick="corpSearch(@Model.Id)">Search</button>
+		</div>
+		<div class="col-md-6">
+			<ul id="approvedCorporations"></ul>
+		</div>
+	</div>
 </div>

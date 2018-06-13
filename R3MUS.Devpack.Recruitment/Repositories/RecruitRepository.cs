@@ -1,4 +1,5 @@
-﻿using R3MUS.Devpack.Recruitment.Repositories.Entities;
+﻿using R3MUS.Devpack.Recruitment.Models;
+using R3MUS.Devpack.Recruitment.Repositories.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -47,6 +48,20 @@ namespace R3MUS.Devpack.Recruitment.Repositories
             var recruits = _databaseContext.Recruits;
             var recruit = recruits.First(w => w.CharacterId == characterId);
             return _databaseContext.Recruits.First(w => w.CharacterId == characterId).TokenData.First().RefreshToken;
+        }
+
+        public void AddCorporation(CorporationAuthorisationModel request)
+        {
+            _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId).TokenShare
+                .Add(new TokenShare() { CorporationId = request.CorporationId  });
+            _databaseContext.SaveChanges();
+        }
+        public void DeleteCorporation(CorporationAuthorisationModel request)
+        {
+            var recruit = _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId);
+            var token = recruit.TokenShare.First(w => w.CorporationId == request.CorporationId);
+            recruit.TokenShare.Remove(token);
+            _databaseContext.SaveChanges();
         }
     }
 }

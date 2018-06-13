@@ -1,6 +1,9 @@
 ﻿function slideToggle(me) {
 	$(me).next().slideToggle('slow');
 }
+function showModal(me) {
+	$('#' + me).modal();
+}
 
 function getMailHeaders() {
 	var ownerId = $.trim($('#character-id').text());
@@ -24,6 +27,41 @@ function getMailHeaders() {
 			$('#mail-headers').slideDown();
 			$('#loading-mail').slideUp();
 		});
+}
+
+function corpSearch(ownerId) {
+	var corpName = $('#corpName').val();
+		var url = window.location.protocol + "//" + window.location.host + '/';
+		$.get(url + 'api/SearchCorporation?corporationName=' + corpName)
+			.done(function (data) {
+				if ($('#approvedCorporations').html().indexOf(data.corporation_id) == -1) {
+					$('#approvedCorporations').append('<li id="' + data.corporation_id + '">' + data.corporation_name
+						+ ' <button onclick="removeCorp(' + data.corporation_id + ', ' + ownerId + ')">x</button>'
+						+ '</li>');
+				}
+				addCorpForRecruit(data.corporation_id, ownerId);
+			})
+			.fail(function () {
+				alert('Cannot find a corporation called "' + corpName + '"');
+			});
+}
+
+function addCorpForRecruit(corpId, ownerId) {
+	var data = { CorporationId: corpId, RecruitId: ownerId };
+	var url = window.location.protocol + "//" + window.location.host + '/';
+	$.post(url + 'api/AuthoriseCorporation', data);
+}
+
+function removeCorp(corpId, ownerId) {	
+	var data = { CorporationId: corpId, RecruitId: ownerId };
+	var url = window.location.protocol + "//" + window.location.host + '/';
+	$.ajax({
+		url: url + 'api/AuthoriseCorporation',
+		type: 'DELETE',
+		success: function () {
+			$('#' + corpId).remove();
+		}
+	});
 }
 
 function createRow(data, ownerId) {
