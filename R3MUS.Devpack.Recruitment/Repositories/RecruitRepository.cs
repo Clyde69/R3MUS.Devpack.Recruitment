@@ -24,12 +24,12 @@ namespace R3MUS.Devpack.Recruitment.Repositories
                 {
                     CharacterId = characterId,
                     History = new List<Entities.History>()
-                    {
-                        new History(){
-                            ActionDate = DateTime.Now,
-                            Status = Enums.ApplicationStatus.Applied
-                        }
-                    }
+                    //{
+                    //    new History(){
+                    //        ActionDate = DateTime.Now,
+                    //        Status = Enums.ApplicationStatus.Applied
+                    //    }
+                    //}
                 });
                 _databaseContext.SaveChanges();
             }
