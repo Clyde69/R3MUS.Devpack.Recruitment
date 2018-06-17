@@ -9,6 +9,8 @@ using System.Security.Claims;
 using R3MUS.Devpack.Recruitment.Repositories;
 using R3MUS.Devpack.Recruitment.Enums;
 using R3MUS.Devpack.Recruitment.Properties;
+using R3MUS.Devpack.ESI.Extensions;
+using System.Linq;
 
 namespace R3MUS.Devpack.Recruitment.Services
 {
@@ -73,9 +75,41 @@ namespace R3MUS.Devpack.Recruitment.Services
             return identity;
         }
 
-        public void SSOReturnForScreeners()
+        public ClaimsIdentity SSOReturnForScreeners(HttpContextBase context)
         {
+            var owinContext = context.GetOwinContext();
+            var userManager = owinContext.GetUserManager<SSOUserManager>();
+            var authManager = owinContext.Authentication;
 
+            var endpoint = _esiRepository.GetByName(Resources.ScreenerEndpointName);
+
+            var token = ESI.SingleSignOn.GetTokensFromAuthenticationToken(endpoint.ClientId, endpoint.SecretKey,
+                ESI.SingleSignOn.GetAuthorisationCode(context.Request.Url));
+
+            var character = new ESI.Models.Character.Detail(token.AccessToken);
+            if (character.GetRolesInCorporation(token.AccessToken).Roles.Contains(Resources.Personnel_Manager))
+            {
+                var identity = GenerateIdentity(character, token.AccessToken);
+                identity.AddClaim(new Claim(ClaimTypes.Role, Enum.GetName(typeof(Role), Role.Screener)));
+
+                authManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                authManager.SignIn(
+                    new Microsoft.Owin.Security.AuthenticationProperties { IsPersistent = false },
+                    identity
+                    );
+
+                return identity;
+            }
+            throw new UnauthorizedAccessException();
+        }
+
+        public void LogOut(HttpContextBase context)
+        {
+            var authManager = context.GetOwinContext().Authentication;
+            authManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            SSOUserManager.SiteUser = null;
         }
 
         private ClaimsIdentity GenerateIdentity(ESI.Models.Character.Detail character, string token)

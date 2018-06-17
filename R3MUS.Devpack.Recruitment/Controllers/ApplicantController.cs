@@ -11,17 +11,15 @@ namespace R3MUS.Devpack.Recruitment.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly ISSOUserManager _userManager;
-        private readonly IRecruitRepository _recruitRepository;
         private readonly IApplicantService _applicantService;
 
         private const string _endpointName = "Applicant";
 
         public ApplicantController(IAuthenticationService authenticationService, ISSOUserManager userManager,
-            IRecruitRepository recruitRepository, IApplicantService applicantService)
+            IApplicantService applicantService)
         {
             _authenticationService = authenticationService;
             _userManager = userManager;
-            _recruitRepository = recruitRepository;
             _applicantService = applicantService;
         }
 
@@ -42,7 +40,11 @@ namespace R3MUS.Devpack.Recruitment.Controllers
         [Authorize]
         public ActionResult FinaliseOptions()
         {
-            return View(new ApplicantPageViewModel() { Applicant = _applicantService.GetCharacterViewModel(SSOUserManager.SiteUser.Character.Id) });
+            return View("ViewApplicant", new ApplicantPageViewModel()
+            {
+                Applicant = _applicantService.GetCharacterViewModel(SSOUserManager.SiteUser.Character.Id),
+                ViewMode = Enums.Role.Applicant
+            });
         }
     }
 }

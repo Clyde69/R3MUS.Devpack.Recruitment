@@ -1,0 +1,9 @@
+﻿@model R3MUS.Devpack.Recruitment.ViewModels.ApplicantPageViewModel
+<div class="row">
+	<div class="col-md-6">
+		@Html.DropDownListFor(model => model.Status, Model.AllStatusValues)
+	</div>
+	<div class="col-md-6">
+		@Html.ActionLink("Back to list", "ViewApplicants", null, new { @class = "btn btn-primary btn-large" })
+	</div>
+</div>

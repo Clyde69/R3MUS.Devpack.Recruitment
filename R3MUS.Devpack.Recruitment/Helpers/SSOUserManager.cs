@@ -36,12 +36,13 @@ namespace R3MUS.Devpack.Recruitment.Helpers
         public override Task<SSOApplicationUser> FindByIdAsync(string userId)
         {
             var character = new Devpack.ESI.Models.Character.Detail(Convert.ToInt64(userId));
-
+            
             var siteUser = new SSOApplicationUser()
             {
                 Id = userId,
                 UserName = character.Name,
-                CorporationId = (long)character.CorporationId,
+                CorporationId = character.CorporationId,
+                AllianceId = character.AllianceId,
                 Character = character
             };
             

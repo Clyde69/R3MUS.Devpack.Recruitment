@@ -5,15 +5,28 @@
 }
 
 <h2>Finalise Options</h2>
-
 <div class="row">
 	@Html.Partial("_CharacterModelView", Model.Applicant.Applicant)
+	@if (Model.ViewMode == R3MUS.Devpack.Recruitment.Enums.Role.Applicant)
+	{
+		@Html.Partial("_AuthorisedCorporationView", Model.Applicant.Applicant)
+	}
+	else
+	{
+		@Html.Partial("_ScreenerOptions")
+	}
 </div>
-<div id="accordian">
+<div id="accordian">@*  *@
 	<div class="row">
 			@Html.Partial("_EmploymentHistory", Model.Applicant.Applicant.EmploymentHistory)
-			@Html.Partial("_ContactsView", Model.Applicant.Contacts)
-		</div>
+			@Html.Partial("_ContactsView")
+	</div>
+	<div class="row">
+		@Html.Partial("_WalletJournalView")
+	</div>
+	<div class="row">
+		@Html.Partial("_WalletTransactionsView")
+	</div>
 	<div class="row">
 		@Html.Partial("_MailSummaryModelView")
 	</div>

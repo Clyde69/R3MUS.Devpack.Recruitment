@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<R3MUS.Devpack.Recruitment.Models.CorporationModel>
 
 <div class="col-md-6">
-	<h3 class="option-selector" onclick="showModal('employmentModal')">Employment History</h3>
-	<div id="employmentModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+	<h3 class="option-selector" onclick="slideToggle('employmentModal')">Employment History</h3>
+	<div id="employmentModal" style="display: none;"> <!-- class="modal fade" role="dialog">-->
+		@*<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">Contacts</h4>
 					<button type="button" class="close pull-right" data-dismiss="modal">X</button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body">*@
 					@foreach (var item in Model)
 					{
 						<div class="col-md-2 modal-segment">
@@ -23,8 +23,8 @@
 							</div>
 						</div>
 					}
-				</div>
+				@*</div>
 			</div>
-		</div>
+		</div>*@
 	</div>
 </div>

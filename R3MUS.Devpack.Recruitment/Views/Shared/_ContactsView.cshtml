@@ -1,43 +1,28 @@
-﻿@model IEnumerable<R3MUS.Devpack.Recruitment.Models.CharacterContactModel>
-
-<div class="col-md-6">
-	<h3 class="option-selector" onclick="showModal('contactModal')">Contacts</h3>
-	<div id="contactModal" class="modal fade" role="dialog">
+﻿<div class="col-md-6">
+	<h3 class="option-selector" onclick="slideToggle('contactModal')">Contacts</h3>
+	<div id="contactModal" style="display: none;"><!-- class="modal fade" role="dialog">-->
 		<div class="modal-dialog">
-			<div class="modal-content">
+			@*<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">Contacts</h4>
 					<button type="button" class="close pull-right" data-dismiss="modal">X</button>
 				</div>
-				<div class="modal-body">
-					@foreach (var item in Model)
-					{
-						<div class="col-md-2 modal-segment">
-							<div class="row">
-								<strong>@Html.DisplayNameFor(model => model.Character.Name): </strong>
-								@Html.DisplayFor(modelItem => item.Character.Name)
-							</div>
-							<div class="row">
-								<strong>@Html.DisplayNameFor(model => model.ContactType): </strong>
-								@Html.DisplayFor(modelItem => item.ContactType)
-							</div>
-							<div class="row">
-								<strong>@Html.DisplayNameFor(model => model.Standing): </strong>
-								@Html.DisplayFor(modelItem => item.Standing)
-							</div>
-							<div class="row">
-								<a target="_blank" href="@string.Format("https://zkillboard.com/character/{0}/", item.Character.Id)">
-									zKillboard
-								</a>
-								&nbsp;
-								<a target="_blank" href="@string.Format("https://evewho.com/pilot/{0}", item.Character.Name.Replace(" ", "+"))">
-									EveWho
-								</a>
-							</div>
+				<div class="modal-body">*@
+					<div class="row">
+						<div class="col-md-4">&nbsp;</div>
+						<div class="col-md-4">
+							<div class="col-sm-4">&nbsp;</div>
+							<div id="loading-contacts" class="col-sm-2 loader"></div>
 						</div>
-					}
+						<div class="col-md-4">&nbsp;</div>
+					</div>
+					<div id="contact-modal-dialog">							
+					</div>
 				</div>
-			</div>
-		</div>
+			@*</div>
+		</div>*@
 	</div>
+	<script>
+		getContacts();
+	</script>
 </div>

@@ -3,6 +3,7 @@ using R3MUS.Devpack.ESI.Extensions;
 using R3MUS.Devpack.ESI.Models.Character;
 using R3MUS.Devpack.ESI.Models.Mail;
 using R3MUS.Devpack.ESI.Models.Shared;
+using R3MUS.Devpack.ESI.Models.Universe;
 using R3MUS.Devpack.Recruitment.Helpers;
 using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories;
@@ -32,18 +33,35 @@ namespace R3MUS.Devpack.Recruitment.Services
             _mailService = mailService;
         }
 
+        public List<ContactViewModel> GetContacts(long id)
+        {
+            var character = new ESI.Models.Character.Detail(id);
+
+            var endpoint = _esiRepository.GetByName("Applicant");
+            var accessToken = ESI.SingleSignOn.GetTokensFromRefreshToken(endpoint.ClientId, endpoint.SecretKey,
+                _recruitRepository.GetRefreshTokenForApplicant(id));
+            var contacts = character.GetContacts(accessToken.AccessToken);
+
+            var characterContacts = _mapper.Map<List<CharacterContactModel>>(contacts.Where(w => w.ContactType == "character"));
+            var corporationContacts = _mapper.Map<List<CorporationContactModel>>(contacts.Where(w => w.ContactType == "corporation"));
+            var allianceContacts = _mapper.Map<List<AllianceContactModel>>(contacts.Where(w => w.ContactType == "alliance"));
+
+            return _mapper.Map<List<ContactViewModel>>(characterContacts)
+                .Concat(_mapper.Map<List<ContactViewModel>>(corporationContacts))
+                .Concat(_mapper.Map<List<ContactViewModel>>(allianceContacts)).OrderByDescending(o => o.Standing).ToList();
+        }
+        
         public ApplicantViewModel GetCharacterViewModel(long id)
         {
             var character = new ESI.Models.Character.Detail(id);
             var endpoint = _esiRepository.GetByName("Applicant");
             var accessToken = ESI.SingleSignOn.GetTokensFromRefreshToken(endpoint.ClientId, endpoint.SecretKey,
                 _recruitRepository.GetRefreshTokenForApplicant(id));
-            
             var result = new ApplicantViewModel
             {
-                Applicant = _mapper.Map<CharacterModel>(character),
-                Contacts = _mapper.Map<List<CharacterContactModel>>(character.GetContacts(accessToken.AccessToken))
+                Applicant = _mapper.Map<CharacterModel>(character)
             };
+
             result.Applicant.EmploymentHistory = _mapper.Map<List<CorporationModel>>(character.GetEmploymentHistory());
             result.Applicant.AccountStatus = _accountStatusHelper.GetAccountStatus(character.GetTrainingQueue(accessToken.AccessToken));
             
@@ -57,6 +75,41 @@ namespace R3MUS.Devpack.Recruitment.Services
             result.Applicant.Alliance = AllianceModel.GetAllianceInfo(character.AllianceId);
 
             return result;
+        }
+
+        public List<WalletJournalViewModal> GetWalletJournal(long id)
+        {
+            var character = new ESI.Models.Character.Detail(id);
+            var endpoint = _esiRepository.GetByName("Applicant");
+            var accessToken = ESI.SingleSignOn.GetTokensFromRefreshToken(endpoint.ClientId, endpoint.SecretKey,
+                _recruitRepository.GetRefreshTokenForApplicant(id));
+
+            return _mapper.Map<List<WalletJournalViewModal>>(character.GetWalletJournal(accessToken.AccessToken)
+                .Where(w => w.ReferenceType == "player_donation" || w.ReferenceType == "corporation_account_withdrawal").ToList());
+        }
+
+        public List<WalletTransactionViewModel> GetWalletTransactions(long id)
+        {
+            var character = new ESI.Models.Character.Detail(id);
+            var endpoint = _esiRepository.GetByName("Applicant");
+            var accessToken = ESI.SingleSignOn.GetTokensFromRefreshToken(endpoint.ClientId, endpoint.SecretKey,
+                _recruitRepository.GetRefreshTokenForApplicant(id));
+
+            var results = _mapper.Map<List<WalletTransactionViewModel>>(character.GetWalletTransactions(accessToken.AccessToken));
+
+            var clientIdList = new IdList() { Ids = results.Select(s => s.ClientId).Distinct().ToList() };
+            var itemIdList = new IdList() { Ids = results.Select(s => (long)s.ItemTypeId).Distinct().ToList() };
+
+            var clientInfo = clientIdList.GetCharacterNames();
+            var itemInfo = new List<ItemType>();
+            itemIdList.Ids.ForEach(f => itemInfo.Add(new ItemType(f)));
+
+            results.ForEach(f => {
+                f.ClientName = clientInfo.CharacterDetail.First(w => w.Id == f.ClientId).Name;
+                f.ItemTypeName = itemInfo.First(w => w.Id == f.ItemTypeId).Name;
+            });
+
+            return results;
         }
     }
 }

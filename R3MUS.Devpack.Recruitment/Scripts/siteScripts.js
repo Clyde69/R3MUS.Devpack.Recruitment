@@ -1,5 +1,5 @@
 ﻿function slideToggle(me) {
-	$(me).next().slideToggle('slow');
+	$('#' + me).slideToggle('slow');
 }
 function showModal(me) {
 	$('#' + me).modal();
@@ -12,7 +12,7 @@ function getMailHeaders() {
 		.done(function (data) {
 			var docElement = document.createDocumentFragment();
 			for (var i = 0; i < data.length; i++) {
-				docElement.appendChild(createRow(data[i], ownerId));
+				docElement.appendChild(createMailRow(data[i], ownerId));
 			}
 			$('#mail-headers').append(docElement);
 			$('#mail-headers').slideDown();
@@ -23,6 +23,8 @@ function getMailHeaders() {
 			var row = document.createElement('tr');
 			var td = document.createElement('td');
 			td.innerText = 'Something went wrong.';
+			$(row).append(td);
+			$(docElement).append(row);
 			$('#mail-headers').append(docElement);
 			$('#mail-headers').slideDown();
 			$('#loading-mail').slideUp();
@@ -58,13 +60,14 @@ function removeCorp(corpId, ownerId) {
 	$.ajax({
 		url: url + 'api/AuthoriseCorporation',
 		type: 'DELETE',
+		data: data,
 		success: function () {
 			$('#' + corpId).remove();
 		}
 	});
 }
 
-function createRow(data, ownerId) {
+function createMailRow(data, ownerId) {
 	var row = document.createElement('tr');
 	$(row).addClass('mouse-change');
 	row.onclick = function () { displayMail(data.Id) };
@@ -129,4 +132,189 @@ function displayMail(mailId) {
 			var w = window.open();
 			$(w.document.body).html(htmlStart + '<h1>Unable to display mail.</h1>' + htmlEnd);
 		});
+}
+
+function getContacts() {
+	var ownerId = $.trim($('#character-id').text());
+	var url = window.location.protocol + "//" + window.location.host + '/';
+	$.get(url + 'api/GetContacts/' + ownerId)
+		.done(function (data) {
+			var docElement = document.createDocumentFragment();
+			for (var i = 0; i < data.length; i++) {
+				docElement.appendChild(createContactElement(data[i], ownerId));
+			}
+			$('#contact-modal-dialog').append(docElement);
+			$('#contact-modal-dialog').slideDown();
+			$('#loading-contacts').slideUp();
+		})
+		.fail(function () {
+			var docElement = document.createDocumentFragment();
+			var div = document.createElement('div');
+			$(div).html('Something went wrong.');
+			$(docElement).append(div);
+			$('#contact-modal-dialog').append(docElement);
+			$('#contact-modal-dialog').slideDown();
+			$('#loading-contacts').slideUp();
+		});
+}
+
+function createContactElement(data) {
+	var parentDiv = document.createElement('div');
+	$(parentDiv).attr('class', 'col-md-3 modal-segment alert ' + data.AlertStyle);
+
+	var div = document.createElement('div');
+	$(div).attr('class', 'row');
+
+	var strong = document.createElement('strong');
+	$(strong).html('Name: ');
+
+	div.appendChild(strong);
+	$(div).html($(div).html() + data.Name);
+	parentDiv.appendChild(div);
+
+	div = document.createElement('div');
+	$(div).attr('class', 'row');
+
+	strong = document.createElement('strong');
+	$(strong).html('Contact Type: ');
+
+	div.appendChild(strong);
+	$(div).html($(div).html() + data.contact_type);
+	parentDiv.appendChild(div);
+
+	div = document.createElement('div');
+	$(div).attr('class', 'row');
+
+	strong = document.createElement('strong');
+	$(strong).html('Standing: ');
+
+	div.appendChild(strong);
+	$(div).html($(div).html() + data.standing.toFixed(2));
+	parentDiv.appendChild(div);
+	
+	div = document.createElement('div');
+	$(div).attr('class', 'row');
+	if (data.contact_type == 'character') {
+		var a = document.createElement('a');
+		$(a).attr('target', '_blank');
+		$(a).attr('href', 'https://zkillboard.com/character/' + data.contact_id + '/');
+		$(a).text('zKillboard');
+		div.appendChild(a);
+
+		var blank = document.createElement('span');
+		$(blank).html('&nbsp;')
+		div.appendChild(blank);
+
+		a = document.createElement('a');
+		$(a).attr('target', '_blank');
+		$(a).attr('href', 'https://evewho.com/pilot/' + data.Name.replace(' ', '+') + '/');
+		$(a).text('Evewho');
+		div.appendChild(a);
+	}
+	parentDiv.appendChild(div);
+
+	return parentDiv;
+}
+
+function getWalletJournal() {
+	var ownerId = $.trim($('#character-id').text());
+	var url = window.location.protocol + "//" + window.location.host + '/';
+	$.get(url + 'api/GetWalletJournal/' + ownerId)
+		.done(function (data) {
+			var docElement = document.createDocumentFragment();
+			for (var i = 0; i < data.length; i++) {
+				docElement.appendChild(createJournalElement(data[i], ownerId));
+			}
+			$('#journal-modal-dialog').append(docElement);
+			$('#journal-modal-dialog').slideDown();
+			$('#loading-journal').slideUp();
+		})
+		.fail(function () {
+			var docElement = document.createDocumentFragment();
+			var div = document.createElement('div');
+			$(div).html('Something went wrong.');
+			$(docElement).append(div);
+			$('#journal-modal-dialog').append(docElement);
+			$('#journal-modal-dialog').slideDown();
+			$('#loading-journal').slideUp();
+		});
+}
+function getWalletTransactions() {
+	var ownerId = $.trim($('#character-id').text());
+	var url = window.location.protocol + "//" + window.location.host + '/';
+	$.get(url + 'api/GetWalletTransactions/' + ownerId)
+		.done(function (data) {
+			var docElement = document.createDocumentFragment();
+			for (var i = 0; i < data.length; i++) {
+				docElement.appendChild(createTransactionElement(data[i], ownerId));
+			}
+			$('#transaction-modal-dialog').append(docElement);
+			$('#transaction-modal-dialog').slideDown();
+			$('#loading-transactions').slideUp();
+		})
+		.fail(function () {
+			var docElement = document.createDocumentFragment();
+			var div = document.createElement('div');
+			$(div).html('Something went wrong.');
+			$(docElement).append(div);
+			$('#transaction-modal-dialog').append(docElement);
+			$('#transaction-modal-dialog').slideDown();
+			$('#loading-transactions').slideUp();
+		});
+}
+
+function createJournalElement(data) {
+	var row = document.createElement('tr');
+
+	var td = document.createElement('td');
+	td.innerText = data.Timestamp;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.Amount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.Balance.toLocaleString(undefined, { maximumFractionDigits: 2 });
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.Description;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.Reason;
+	row.appendChild(td);
+
+	return row;
+}
+
+function createTransactionElement(data) {
+	var row = document.createElement('tr');
+
+	var td = document.createElement('td');
+	td.innerText = data.Timestamp;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.ClientName;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.BuySell;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.Quantity;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.ItemTypeName;
+	row.appendChild(td);
+
+	td = document.createElement('td');
+	td.innerText = data.UnitPrice.toLocaleString(undefined, { maximumFractionDigits: 2 });
+	row.appendChild(td);
+
+	return row;
 }

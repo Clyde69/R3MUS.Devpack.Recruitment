@@ -102,3 +102,10 @@ textarea {
 		transform: rotate(360deg);
 	}
 }
+
+.modal-dialog {
+	left: 5px;
+}
+.modal-segment {
+	min-height: 155px;
+}

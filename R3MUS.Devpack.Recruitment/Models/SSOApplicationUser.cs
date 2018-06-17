@@ -8,6 +8,7 @@ namespace R3MUS.Devpack.Recruitment.Models
     {
         public string AuthToken { get; set; }
         public long CorporationId { get; set; }
+        public long? AllianceId { get; set; }
 
         public IIdentity Identity { get; set; }
 

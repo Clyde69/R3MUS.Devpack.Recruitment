@@ -70,6 +70,15 @@ namespace R3MUS.Devpack.Recruitment.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personnel_Manager.
+        /// </summary>
+        public static string Personnel_Manager {
+            get {
+                return ResourceManager.GetString("Personnel_Manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Screener.
         /// </summary>
         public static string ScreenerEndpointName {

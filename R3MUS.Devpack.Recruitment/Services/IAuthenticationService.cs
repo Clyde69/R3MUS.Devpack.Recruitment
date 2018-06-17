@@ -10,6 +10,7 @@ namespace R3MUS.Devpack.Recruitment.Services
         ActionResult SSOLoginForApplicants();
         ActionResult SSOLoginForScreeners();
         ClaimsIdentity SSOReturnForApplicants(HttpContextBase context);
-        void SSOReturnForScreeners();
+        ClaimsIdentity SSOReturnForScreeners(HttpContextBase context);
+        void LogOut(HttpContextBase context);
     }
 }

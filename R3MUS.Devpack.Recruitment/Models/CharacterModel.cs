@@ -16,6 +16,7 @@ namespace R3MUS.Devpack.Recruitment.Models
         public List<CharacterContactModel> Contacts { get; set; }
         public List<MailHeaderModel> Mails { get; set; }
         public List<CorporationModel> EmploymentHistory { get; set; }
+        public List<ESI.Models.Corporation.Summary> AuthorisedCorporations { get; set; }
 
         public string AccountStatus { get; set; }
     }

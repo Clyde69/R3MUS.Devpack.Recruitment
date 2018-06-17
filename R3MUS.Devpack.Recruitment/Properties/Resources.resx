@@ -120,6 +120,9 @@
   <data name="ApplicantEndpointName" xml:space="preserve">
     <value>Applicant</value>
   </data>
+  <data name="Personnel_Manager" xml:space="preserve">
+    <value>Personnel_Manager</value>
+  </data>
   <data name="ScreenerEndpointName" xml:space="preserve">
     <value>Screener</value>
   </data>

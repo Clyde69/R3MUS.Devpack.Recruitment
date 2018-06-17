@@ -1,0 +1,14 @@
+﻿@model List<R3MUS.Devpack.ESI.Models.Character.Summary>
+@foreach(var character in Model)
+{
+	<div class="row">
+		<a href="/Screener/ViewApplicant/@character.Id">
+			<div class="col-md-2">
+				<strong>@Html.DisplayNameFor(model => character.Name): </strong>
+			</div>
+			<div class="col-md-10">
+				@Html.DisplayFor(model => character.Name)
+			</div>
+		</a>
+	</div>
+}

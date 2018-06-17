@@ -7,6 +7,5 @@ namespace R3MUS.Devpack.Recruitment.ViewModels
     public class ApplicantViewModel
     {
         public CharacterModel Applicant { get; set; }
-        public List<CharacterContactModel> Contacts { get; set; }
     }
 }

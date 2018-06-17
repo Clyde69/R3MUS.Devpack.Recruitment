@@ -1,6 +1,8 @@
 ﻿using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories.Entities;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace R3MUS.Devpack.Recruitment.Repositories
@@ -22,6 +24,12 @@ namespace R3MUS.Devpack.Recruitment.Repositories
                 {
                     CharacterId = characterId,
                     History = new List<Entities.History>()
+                    {
+                        new History(){
+                            ActionDate = DateTime.Now,
+                            Status = Enums.ApplicationStatus.Applied
+                        }
+                    }
                 });
                 _databaseContext.SaveChanges();
             }
@@ -59,9 +67,14 @@ namespace R3MUS.Devpack.Recruitment.Repositories
         public void DeleteCorporation(CorporationAuthorisationModel request)
         {
             var recruit = _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId);
-            var token = recruit.TokenShare.First(w => w.CorporationId == request.CorporationId);
-            recruit.TokenShare.Remove(token);
+            var tokenShare = recruit.TokenShare.First(w => w.CorporationId == request.CorporationId);
+            _databaseContext.Entry(tokenShare).State = EntityState.Deleted;
             _databaseContext.SaveChanges();
+        }
+
+        public Recruit GetRecruitByCharacterId(long characterId)
+        {
+            return _databaseContext.Recruits.First(w => w.CharacterId == characterId);
         }
     }
 }

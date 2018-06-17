@@ -1,0 +1,18 @@
+﻿@model R3MUS.Devpack.Recruitment.ViewModels.ScreenerSummaryPageViewModel
+
+<div class="row">
+    <h4>Screener Summary</h4>
+	@if (Model.ErrorMessage != string.Empty)
+	{
+		<div class="alert alert-danger">@Model.ErrorMessage</div>
+	}
+    <hr />
+	<div class="col-md-6">
+		<h4>These applicants are waiting for review for your corporation.</h4>
+		@Html.Partial("_ApplicantSummaryView", Model.ApplicationSummary.CorporateApplications)
+	</div>
+	<div class="col-md-6">
+		<h4>These applicants are waiting for review for your alliance.</h4>
+		@Html.Partial("_ApplicantSummaryView", Model.ApplicationSummary.AllianceApplications)
+	</div>
+</div>

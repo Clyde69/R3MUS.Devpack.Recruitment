@@ -1,4 +1,5 @@
-﻿using R3MUS.Devpack.Recruitment.Services.SiteContent;
+﻿using R3MUS.Devpack.Recruitment.Services;
+using R3MUS.Devpack.Recruitment.Services.SiteContent;
 using R3MUS.Devpack.Recruitment.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace R3MUS.Devpack.Recruitment.Controllers
     public class HomeController : Controller
     {
         private readonly IPageContentService _pageContentService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public HomeController(IPageContentService pageContentService)
+        public HomeController(IPageContentService pageContentService, IAuthenticationService authenticationService)
         {
             _pageContentService = pageContentService;
+            _authenticationService = authenticationService;
         }
 
         public ActionResult Index()
@@ -24,16 +27,14 @@ namespace R3MUS.Devpack.Recruitment.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult LogOut()
         {
-            ViewBag.Message = "Your contact page.";
+            _authenticationService.LogOut(HttpContext);
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

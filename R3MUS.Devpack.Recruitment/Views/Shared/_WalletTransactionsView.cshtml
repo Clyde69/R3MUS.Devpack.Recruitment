@@ -1,0 +1,41 @@
+﻿<div class="col-md-12">
+	<h3 class="option-selector" onclick="slideToggle('walletTransactionsModal')">Wallet Transactions</h3>
+	<div id="walletTransactionsModal" style="display: none;">
+		<div>
+			<div class="row">
+				<div class="col-md-4">&nbsp;</div>
+				<div class="col-md-4">
+					<div class="col-sm-4">&nbsp;</div>
+					<div id="loading-transactions" class="col-sm-2 loader"></div>
+				</div>
+				<div class="col-md-4">&nbsp;</div>
+			</div>
+			<table id="transaction-modal-dialog" class="table" style="display:none;">
+				<tr>
+					<th>
+						Timestamp
+					</th>
+					<th>
+						ClientName
+					</th>
+					<th>
+						Buy / Sell
+					</th>
+					<th>
+						Quantity
+					</th>
+					<th>
+						Item Name
+					</th>
+					<th>
+						Unit Price
+					</th>
+					<th></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script>
+		getWalletTransactions();
+	</script>
+</div>

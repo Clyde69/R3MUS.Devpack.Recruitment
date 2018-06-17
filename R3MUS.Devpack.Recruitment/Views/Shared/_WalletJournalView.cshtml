@@ -1,0 +1,38 @@
+﻿<div class="col-md-12">
+	<h3 class="option-selector" onclick="slideToggle('walletJournalModal')">Wallet Journal</h3>
+	<div id="walletJournalModal" style="display: none;">
+		<div>
+			<div class="row">
+				<div class="col-md-4">&nbsp;</div>
+				<div class="col-md-4">
+					<div class="col-sm-4">&nbsp;</div>
+					<div id="loading-journal" class="col-sm-2 loader"></div>
+				</div>
+				<div class="col-md-4">&nbsp;</div>
+			</div>
+			<table id="journal-modal-dialog" class="table" style="display:none;">
+				<tr>
+					<th>
+						Timestamp
+					</th>
+					<th>
+						Amount
+					</th>
+					<th>
+						Balance
+					</th>
+					<th>
+						Description
+					</th>
+					<th>
+						Reason
+					</th>
+					<th></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script>
+		getWalletJournal();
+	</script>
+</div>

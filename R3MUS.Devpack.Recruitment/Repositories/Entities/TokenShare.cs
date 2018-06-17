@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public long CorporationId { get; set; }
+        public long? AllianceId { get; set; }
         public int RecruitId { get; set; }
         public virtual Recruit Recruit { get; set; }
     }
