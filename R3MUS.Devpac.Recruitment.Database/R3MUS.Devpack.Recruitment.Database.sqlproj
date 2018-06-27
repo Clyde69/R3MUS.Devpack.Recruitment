@@ -71,7 +71,6 @@
   <ItemGroup>
     <Build Include="Application\Tables\Recruit.sql" />
     <Build Include="Application\Tables\SharedWith.sql" />
-    <Build Include="Application\Tables\History.sql" />
     <Build Include="Application\Tables\TokenData.sql" />
     <Build Include="Security\Tables\Screener.sql" />
     <Build Include="Security\Tables\CorporationMember.sql" />
