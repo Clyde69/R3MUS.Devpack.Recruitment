@@ -12,13 +12,13 @@ namespace R3MUS.Devpack.Recruitment.Extensions
     {
         public static List<ESIBasicEntity> GetEntityNames(this IdList me)
         {
-            var characters = me.GetCharacterNames().CharacterDetail;
+            var characters = me.GetCharacterNames().CharacterDetail.ToList();
             var corporationIdList = new IdList()
             {
                 Ids = characters
                     .Where(w => w.Name.Equals("Character Not Found")).Select(w => w.Id).ToList()
             };
-            var corporations = corporationIdList.GetCorporationNames().CorporationDetail;
+            var corporations = corporationIdList.GetCorporationNames().CorporationDetail.ToList();
 
             characters = characters.Where(w => !w.Name.Equals("Character Not Found")).ToList();
 

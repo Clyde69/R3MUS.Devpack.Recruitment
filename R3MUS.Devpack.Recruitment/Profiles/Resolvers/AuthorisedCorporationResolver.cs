@@ -38,7 +38,7 @@ namespace R3MUS.Devpack.Recruitment.Profiles.Resolvers
                     {
                         CorporationId = f.Id,
                         RecruitId = recruit.Id
-                    }).Status.ToString()
+                    }).ToString()
                 });
             });
 

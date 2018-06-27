@@ -9,7 +9,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories
         public DbSet<Recruit> Recruits { get; set; }
         public DbSet<TokenData> Tokens { get; set; }
         public DbSet<TokenShare> TokenShares { get; set; }
-        public DbSet<History> Historys { get; set; }
         public DbSet<View> Views { get; set; }
         public DbSet<ViewArea> ViewAreas { get; set; }
         public DbSet<ESIEndpoint> ESIEndpoints { get; set; }
@@ -23,7 +22,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Configurations.Add(new RecruitConfiguration());
-            modelBuilder.Configurations.Add(new HistoryConfiguration());
             modelBuilder.Configurations.Add(new TokenDataConfiguration());
             modelBuilder.Configurations.Add(new TokenShareConfiguration());
             modelBuilder.Configurations.Add(new ViewConfiguration());

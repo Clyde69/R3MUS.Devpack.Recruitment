@@ -78,7 +78,7 @@ namespace R3MUS.Devpack.Recruitment.Services
 
             if(id != SSOUserManager.SiteUser.Character.Id)
             {
-                result.Applicant.CurrentStatus = _recruitRepository.GetCurrentStatus(new CorporationAuthorisationModel() { CorporationId = SSOUserManager.SiteUser.CorporationId, RecruitId = result.Applicant.Id }).Status;
+                result.Applicant.CurrentStatus = _recruitRepository.GetCurrentStatus(new CorporationAuthorisationModel() { CorporationId = SSOUserManager.SiteUser.CorporationId, RecruitId = result.Applicant.Id });
             }
 
             return result;

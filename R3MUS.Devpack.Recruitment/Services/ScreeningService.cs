@@ -36,9 +36,9 @@ namespace R3MUS.Devpack.Recruitment.Services
                 return new ScreenerSummaryViewModel()
                 {
                     CorporateApplications = models.CharacterDetail.Where(w => corpApplicantIds.Contains(w.Id)
-                        && !w.CorporationId.Equals(currentUser.CorporationId)).ToList(),
+                        && !w.Id.Equals(currentUser.CorporationId)).ToList(),
                     AllianceApplications = models.CharacterDetail.Where(w => allianceApplicantIds.Contains(w.Id)
-                        && !w.CorporationId.Equals(currentUser.CorporationId)).ToList()
+                        && !w.Id.Equals(currentUser.CorporationId)).ToList()
                 };
             }
             return new ScreenerSummaryViewModel()

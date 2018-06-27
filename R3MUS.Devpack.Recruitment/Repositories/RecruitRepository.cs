@@ -1,4 +1,5 @@
-﻿using R3MUS.Devpack.Recruitment.Models;
+﻿using R3MUS.Devpack.Recruitment.Enums;
+using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,7 @@ namespace R3MUS.Devpack.Recruitment.Repositories
             {
                 _databaseContext.Recruits.Add(new Entities.Recruit()
                 {
-                    CharacterId = characterId,
-                    History = new List<Entities.History>()
-                    //{
-                    //    new History(){
-                    //        ActionDate = DateTime.Now,
-                    //        Status = Enums.ApplicationStatus.Applied
-                    //    }
-                    //}
+                    CharacterId = characterId
                 });
                 _databaseContext.SaveChanges();
             }
@@ -61,28 +55,20 @@ namespace R3MUS.Devpack.Recruitment.Repositories
         public Enums.ApplicationStatus AddCorporation(CorporationAuthorisationModel request)
         {
             _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId).TokenShare
-                .Add(new TokenShare() { CorporationId = request.CorporationId  });
-
-            var utcNow = DateTime.Now;
-            var toon = _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId);
-
-            _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId).History
-                .Add(new History() { Status = Enums.ApplicationStatus.Applied, CorporationId = request.CorporationId, ActionDate = utcNow });
+                .Add(new TokenShare() { CorporationId = request.CorporationId, Status = ApplicationStatus.Applied  });
 
             _databaseContext.SaveChanges();
             return Enums.ApplicationStatus.Applied;
         }        
 
-        public List<History> GetCurrentStatuses(int recruitId)
+        public List<TokenShare> GetCurrentStatuses(int recruitId)
         {
-            return _databaseContext.Recruits.First(w => w.CharacterId == recruitId).History
-                .GroupBy(g => g.CorporationId).Select(s => s.OrderByDescending(w => w.ActionDate).FirstOrDefault()).ToList();
+            return _databaseContext.Recruits.First(w => w.CharacterId == recruitId).TokenShare.ToList();
         }
 
-        public History GetCurrentStatus(CorporationAuthorisationModel request)
+        public ApplicationStatus GetCurrentStatus(CorporationAuthorisationModel request)
         {
-            return _databaseContext.Historys.Where(w => w.RecruitId == request.RecruitId && w.CorporationId == request.CorporationId)
-                .OrderByDescending(o => o.ActionDate).FirstOrDefault();
+            return (ApplicationStatus)_databaseContext.TokenShares.First(w => w.RecruitId == request.RecruitId && w.CorporationId == request.CorporationId).StatusInt;
         }
 
         public void DeleteCorporation(CorporationAuthorisationModel request)

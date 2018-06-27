@@ -12,6 +12,8 @@ namespace R3MUS.Devpack.Recruitment.Enums
         DirectorReview,
         [Display(Name = "Alliance Review")]
         AllianceReview,
+        [Display(Name = "Awaiting Invitation")]
+        AwaitingInvitation,
         Accepted
     }
 }

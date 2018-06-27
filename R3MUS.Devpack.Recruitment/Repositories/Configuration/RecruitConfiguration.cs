@@ -11,10 +11,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories.Configuration
 
             HasKey(b => b.Id);
 
-            HasMany<History>(h => h.History)
-                .WithRequired(w => w.Recruit)
-                .HasForeignKey(h => h.RecruitId);
-
             HasMany<TokenData>(h => h.TokenData)
                 .WithRequired(w => w.Recruit)
                 .HasForeignKey(h => h.RecruitId);

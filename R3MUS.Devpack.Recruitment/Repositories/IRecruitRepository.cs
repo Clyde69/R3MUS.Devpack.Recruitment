@@ -1,4 +1,5 @@
-﻿using R3MUS.Devpack.Recruitment.Models;
+﻿using R3MUS.Devpack.Recruitment.Enums;
+using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories.Entities;
 using System.Collections.Generic;
 
@@ -11,7 +12,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories
         Enums.ApplicationStatus AddCorporation(CorporationAuthorisationModel request);
         void DeleteCorporation(CorporationAuthorisationModel request);
         Recruit GetRecruitByCharacterId(long characterId);
-        List<History> GetCurrentStatuses(int recruitId);
-        History GetCurrentStatus(CorporationAuthorisationModel request);
+        ApplicationStatus GetCurrentStatus(CorporationAuthorisationModel request);
     }
 }

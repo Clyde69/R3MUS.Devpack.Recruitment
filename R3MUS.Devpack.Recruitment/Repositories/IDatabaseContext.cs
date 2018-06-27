@@ -5,7 +5,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories
 {
     public interface IDatabaseContext
     {
-        DbSet<History> Historys { get; set; }
         DbSet<Recruit> Recruits { get; set; }
         DbSet<TokenData> Tokens { get; set; }
         DbSet<View> Views { get; set; }
