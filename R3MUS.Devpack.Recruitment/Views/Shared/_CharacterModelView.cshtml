@@ -56,6 +56,18 @@
 				<dd>
 					@Html.DisplayFor(model => model.AccountStatus)
 				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.SkillPoints)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.TotalSP)
+				</dd>
+				<dt>
+					zKillboard Link
+				</dt>
+				<dd>
+					<a href="https://zkillboard.com/character/@Model.Id" target="_blank">Click Here</a>
+				</dd>
 			</dl>
 		</div>
 	</div>

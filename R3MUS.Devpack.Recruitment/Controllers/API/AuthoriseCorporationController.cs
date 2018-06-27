@@ -13,10 +13,22 @@ namespace R3MUS.Devpack.Recruitment.Controllers.API
             _recruitRepository = recruitRepository;
         }
 
-        public void Post(CorporationAuthorisationModel request)
+        public string Post(CorporationAuthorisationModel request)
         {
-            _recruitRepository.AddCorporation(request);
+            return _recruitRepository.AddCorporation(request).ToString();
         }
+
+        //public IHttpActionResult Post(CorporationAuthorisationModel request)
+        //{
+        //    try
+        //    {
+        //        return Ok(_recruitRepository.AddCorporation(request).ToString());
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(System.Net.HttpStatusCode.Conflict);
+        //    }
+        //}
 
         public void Delete(CorporationAuthorisationModel request)
         {

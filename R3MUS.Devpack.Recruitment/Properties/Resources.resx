@@ -120,6 +120,24 @@
   <data name="ApplicantEndpointName" xml:space="preserve">
     <value>Applicant</value>
   </data>
+  <data name="NotAnError1" xml:space="preserve">
+    <value>There is no error.</value>
+  </data>
+  <data name="NotAnError2" xml:space="preserve">
+    <value>Status: Megadoubleplusgood. Everything is awesome. Please reboot universe &amp; try again.</value>
+  </data>
+  <data name="NotAnError3" xml:space="preserve">
+    <value>I'm watching you through the window &amp; touching myself. Ooooooo, yeah.</value>
+  </data>
+  <data name="NotAnError4" xml:space="preserve">
+    <value>Monkey Trousers. That is all.</value>
+  </data>
+  <data name="NotAnError5" xml:space="preserve">
+    <value>Things that make you go "Mmmm": Electro-Convulsive Therapy.</value>
+  </data>
+  <data name="NotAnError6" xml:space="preserve">
+    <value>Welcome to the Jungle. We got fun &amp; games (my favourite is Hungry Hippos).</value>
+  </data>
   <data name="Personnel_Manager" xml:space="preserve">
     <value>Personnel_Manager</value>
   </data>

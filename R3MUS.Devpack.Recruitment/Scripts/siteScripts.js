@@ -38,7 +38,7 @@ function corpSearch(ownerId) {
 			.done(function (data) {
 				if ($('#approvedCorporations').html().indexOf(data.corporation_id) == -1) {
 					$('#approvedCorporations').append('<li id="' + data.corporation_id + '">' + data.corporation_name
-						+ ' <button onclick="removeCorp(' + data.corporation_id + ', ' + ownerId + ')">x</button>'
+						+ '<span id="status-' + data.corporation_id + '"></span><button onclick="removeCorp(' + data.corporation_id + ', ' + ownerId + ')">x</button>'
 						+ '</li>');
 				}
 				addCorpForRecruit(data.corporation_id, ownerId);
@@ -48,10 +48,28 @@ function corpSearch(ownerId) {
 			});
 }
 
+function changeStatus(corpId, ownerId) {
+	var data = { CorporationId: corpId, RecruitId: ownerId, Status: $('#available-statuses').val() };
+	var url = window.location.protocol + "//" + window.location.host + '/';
+	$.post(url + 'api/ChangeApplicantStatus', data)
+		.success(function (data) {
+			$('#status-change-message').text('Status Changed');
+		})
+		.fail(function () {
+			$('status-change-message').text('Status Failed To Change');
+		});
+}
+
 function addCorpForRecruit(corpId, ownerId) {
 	var data = { CorporationId: corpId, RecruitId: ownerId };
 	var url = window.location.protocol + "//" + window.location.host + '/';
-	$.post(url + 'api/AuthoriseCorporation', data);
+	$.post(url + 'api/AuthoriseCorporation', data)
+		.success(function (data) {
+			$('#status-' + corpId).text(': ' + data);
+		})
+		.fail(function () {
+			$('#status-' + corpId).text(': Failed to add this corporation.');
+		});
 }
 
 function removeCorp(corpId, ownerId) {	

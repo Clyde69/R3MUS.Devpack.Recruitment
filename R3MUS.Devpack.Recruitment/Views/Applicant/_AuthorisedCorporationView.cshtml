@@ -1,13 +1,18 @@
 ﻿@model R3MUS.Devpack.Recruitment.Models.CharacterModel
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-6" style="font-size: large;">
+		<h3>Sharing your information</h3>
 		Search for one or more corporations to share your information with. If the corporation is in an alliance,
 		directors of other corporations in the alliance will also be able to view your information, as in
 		some alliances this is part of the screening process.
 		You may search by either the complete corporation name or the tag.
-		<input type="text" id="corpName" />
-		<button class="btn" onclick="corpSearch(@Model.Id)">Search</button>
+		<br />
+		<h4 class="alert-danger" style="text-align: center;">If you do not add a corporation here then you cannot be screened to become a member.</h4>
+		<div class="pull-right">
+			<input type="text" id="corpName" />
+			<button class="btn" onclick="corpSearch(@Model.Id)">Search</button>
+		</div>
 	</div>
 	<div class="col-md-6">
 		<ul id="approvedCorporations">
@@ -15,6 +20,7 @@
 			{
 				<li id="@corporation.Id">
 					@corporation.Name
+					<span id="status-@corporation.Id">: @corporation.Status</span>
 					<button onclick="removeCorp(@corporation.Id, @Model.Id)">x</button>
 				</li>
 			}

@@ -7,5 +7,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories
     {
         List<Recruit> GetAllianceApplicants(long? allianceId);
         List<Recruit> GetCorporationApplicants(long corporationId);
+        void ChangeApplicantStatus(long characterId, long corporationId, int status);
     }
 }

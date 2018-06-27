@@ -13,7 +13,7 @@ namespace R3MUS.Devpack.Recruitment.Resolvers
         public List<string> Resolve(MailHeaderModel source, MailSummaryModel destination, List<string> destMember, 
             ResolutionContext context)
         {
-            var idList = new IdList() { Ids = source.Recipients.Select(s => s.RecipientId).ToList() };
+            var idList = new IdList() { Ids = source.Recipients.Where(w => w.RecipientType == "character").Select(s => s.RecipientId).ToList() };
             var names = idList.GetCharacterNames();
             return names.CharacterDetail.Select(s => s.Name).ToList();
         }

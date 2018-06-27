@@ -6,6 +6,7 @@ using R3MUS.Devpack.Recruitment.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace R3MUS.Devpack.Recruitment.Services
@@ -41,7 +42,10 @@ namespace R3MUS.Devpack.Recruitment.Services
 
             var token = ESI.SingleSignOn.GetTokensFromRefreshToken(endpoint.ClientId, endpoint.SecretKey, 
                 _recruitRepository.GetRefreshTokenForApplicant(request.OwnerId));
-            request.Body = character.GetMail(request.Id, token.AccessToken).Body;
+            var recode = character.GetMail(request.Id, token.AccessToken).Body.Replace("<br>", "{br}");
+            recode = Regex.Replace(recode, "<.+?>", string.Empty);
+            recode = recode.Replace("{br}", "<br />");
+            request.Body = recode;
 
             return request;
         }

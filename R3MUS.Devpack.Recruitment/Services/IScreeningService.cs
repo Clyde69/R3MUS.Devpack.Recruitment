@@ -7,5 +7,6 @@ namespace R3MUS.Devpack.Recruitment.Services
     {
         ScreenerSummaryViewModel GetApplicantList(SSOApplicationUser currentUser);
         ApplicantViewModel GetApplicantDetails(SSOApplicationUser currentUser, long characterId);
+        bool ChangeStatus(CorporationStatusChangeModel request);
     }
 }

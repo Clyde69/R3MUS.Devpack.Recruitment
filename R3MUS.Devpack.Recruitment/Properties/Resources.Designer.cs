@@ -70,6 +70,60 @@ namespace R3MUS.Devpack.Recruitment.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no error..
+        /// </summary>
+        public static string NotAnError1 {
+            get {
+                return ResourceManager.GetString("NotAnError1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status: Megadoubleplusgood. Everything is awesome. Please reboot universe &amp; try again..
+        /// </summary>
+        public static string NotAnError2 {
+            get {
+                return ResourceManager.GetString("NotAnError2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&apos;m watching you through the window &amp; touching myself. Ooooooo, yeah..
+        /// </summary>
+        public static string NotAnError3 {
+            get {
+                return ResourceManager.GetString("NotAnError3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monkey Trousers. That is all..
+        /// </summary>
+        public static string NotAnError4 {
+            get {
+                return ResourceManager.GetString("NotAnError4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Things that make you go &quot;Mmmm&quot;: Electro-Convulsive Therapy..
+        /// </summary>
+        public static string NotAnError5 {
+            get {
+                return ResourceManager.GetString("NotAnError5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to the Jungle. We got fun &amp; games (my favourite is Hungry Hippos)..
+        /// </summary>
+        public static string NotAnError6 {
+            get {
+                return ResourceManager.GetString("NotAnError6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personnel_Manager.
         /// </summary>
         public static string Personnel_Manager {

@@ -58,12 +58,33 @@ namespace R3MUS.Devpack.Recruitment.Repositories
             return _databaseContext.Recruits.First(w => w.CharacterId == characterId).TokenData.First().RefreshToken;
         }
 
-        public void AddCorporation(CorporationAuthorisationModel request)
+        public Enums.ApplicationStatus AddCorporation(CorporationAuthorisationModel request)
         {
             _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId).TokenShare
                 .Add(new TokenShare() { CorporationId = request.CorporationId  });
+
+            var utcNow = DateTime.Now;
+            var toon = _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId);
+
+            _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId).History
+                .Add(new History() { Status = Enums.ApplicationStatus.Applied, CorporationId = request.CorporationId, ActionDate = utcNow });
+
             _databaseContext.SaveChanges();
+            return Enums.ApplicationStatus.Applied;
+        }        
+
+        public List<History> GetCurrentStatuses(int recruitId)
+        {
+            return _databaseContext.Recruits.First(w => w.CharacterId == recruitId).History
+                .GroupBy(g => g.CorporationId).Select(s => s.OrderByDescending(w => w.ActionDate).FirstOrDefault()).ToList();
         }
+
+        public History GetCurrentStatus(CorporationAuthorisationModel request)
+        {
+            return _databaseContext.Historys.Where(w => w.RecruitId == request.RecruitId && w.CorporationId == request.CorporationId)
+                .OrderByDescending(o => o.ActionDate).FirstOrDefault();
+        }
+
         public void DeleteCorporation(CorporationAuthorisationModel request)
         {
             var recruit = _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId);

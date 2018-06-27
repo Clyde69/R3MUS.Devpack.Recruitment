@@ -240,6 +240,7 @@
     <Compile Include="App_Start\Startup.Ninject.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\AuthoriseCorporationController.cs" />
+    <Compile Include="Controllers\API\ChangeApplicantStatusController.cs" />
     <Compile Include="Controllers\API\GetContactsController.cs" />
     <Compile Include="Controllers\API\GetMailController.cs" />
     <Compile Include="Controllers\API\GetWalletJournalController.cs" />
@@ -254,7 +255,9 @@
     <Compile Include="EveAuthenticationService.cs" />
     <Compile Include="Extensions\ContentExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\IdListExtensions.cs" />
     <Compile Include="Helpers\AccountStatusHelper.cs" />
+    <Compile Include="Helpers\ErrorMessageHelper.cs" />
     <Compile Include="Helpers\IAccountStatusHelper.cs" />
     <Compile Include="Helpers\ISSOUserManager.cs" />
     <Compile Include="Helpers\List.cs" />
@@ -264,6 +267,7 @@
     <Compile Include="IEveAuthenticationService.cs" />
     <Compile Include="Models\AllianceContactModel.cs" />
     <Compile Include="Models\AllianceModel.cs" />
+    <Compile Include="Models\AuthorisedCorporationModel.cs" />
     <Compile Include="Models\CharacterContactModel.cs" />
     <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\Content\ContentAreaResponse.cs" />
@@ -272,7 +276,9 @@
     <Compile Include="Models\CorporationAuthorisationModel.cs" />
     <Compile Include="Models\CorporationContactModel.cs" />
     <Compile Include="Models\CorporationModel.cs" />
+    <Compile Include="Models\CorporationStatusChangeModel.cs" />
     <Compile Include="Models\EntityBaseModel.cs" />
+    <Compile Include="Models\ESIBasicEntity.cs" />
     <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\MailSummaryModel.cs" />
     <Compile Include="Models\SSOApplicationUser.cs" />

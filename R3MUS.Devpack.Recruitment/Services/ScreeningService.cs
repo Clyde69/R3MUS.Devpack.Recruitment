@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using R3MUS.Devpack.ESI.Extensions;
 using R3MUS.Devpack.ESI.Models.Shared;
+using R3MUS.Devpack.Recruitment.Enums;
 using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories;
 using R3MUS.Devpack.Recruitment.ViewModels;
@@ -34,8 +35,10 @@ namespace R3MUS.Devpack.Recruitment.Services
                 var models = idList.GetCharacterNames();
                 return new ScreenerSummaryViewModel()
                 {
-                    CorporateApplications = models.CharacterDetail.Where(w => corpApplicantIds.Contains(w.Id)).ToList(),
-                    AllianceApplications = models.CharacterDetail.Where(w => allianceApplicantIds.Contains(w.Id)).ToList()
+                    CorporateApplications = models.CharacterDetail.Where(w => corpApplicantIds.Contains(w.Id)
+                        && !w.CorporationId.Equals(currentUser.CorporationId)).ToList(),
+                    AllianceApplications = models.CharacterDetail.Where(w => allianceApplicantIds.Contains(w.Id)
+                        && !w.CorporationId.Equals(currentUser.CorporationId)).ToList()
                 };
             }
             return new ScreenerSummaryViewModel()
@@ -53,6 +56,13 @@ namespace R3MUS.Devpack.Recruitment.Services
                 throw new UnauthorizedAccessException();
             }
             return _applicantService.GetCharacterViewModel(characterId);
+        }
+
+        public bool ChangeStatus(CorporationStatusChangeModel request)
+        {
+            var status = (ApplicationStatus)Enum.Parse(typeof(ApplicationStatus), request.Status);
+            _screenerRepository.ChangeApplicantStatus(request.RecruitId, request.CorporationId, (int)status);
+            return true;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace R3MUS.Devpack.Recruitment.Controllers
 
         private const string _applicantEndpointName = "Applicant";
         private const string _screenerEndpointName = "Screener";
-
+        
         public ScreenerController(IAuthenticationService authenticationService, ISSOUserManager userManager, 
             IScreeningService screeningService)
         {
@@ -55,7 +55,7 @@ namespace R3MUS.Devpack.Recruitment.Controllers
                 ApplicationSummary = _screeningService.GetApplicantList(SSOUserManager.SiteUser),
                 ErrorMessage = TempData["ErrorMessage"] != null 
                     ? TempData["ErrorMessage"].ToString()
-                    : "There is no error"
+                    : ErrorMessageHelper.GetNonErrorMessage()
             });
         }
 

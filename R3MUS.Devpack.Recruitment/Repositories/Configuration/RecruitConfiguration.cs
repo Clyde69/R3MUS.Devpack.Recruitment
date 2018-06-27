@@ -22,7 +22,6 @@ namespace R3MUS.Devpack.Recruitment.Repositories.Configuration
             HasMany<TokenShare>(h => h.TokenShare)
                 .WithRequired(w => w.Recruit)
                 .HasForeignKey(h => h.RecruitId);
-
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories.Entities;
+using System.Collections.Generic;
 
 namespace R3MUS.Devpack.Recruitment.Repositories
 {
@@ -7,8 +8,10 @@ namespace R3MUS.Devpack.Recruitment.Repositories
     {
         void AddOrUpdateToken(string token, long characterId);
         string GetRefreshTokenForApplicant(long characterId);
-        void AddCorporation(CorporationAuthorisationModel request);
+        Enums.ApplicationStatus AddCorporation(CorporationAuthorisationModel request);
         void DeleteCorporation(CorporationAuthorisationModel request);
         Recruit GetRecruitByCharacterId(long characterId);
+        List<History> GetCurrentStatuses(int recruitId);
+        History GetCurrentStatus(CorporationAuthorisationModel request);
     }
 }

@@ -4,6 +4,7 @@ using R3MUS.Devpack.ESI.Models.Character;
 using R3MUS.Devpack.ESI.Models.Mail;
 using R3MUS.Devpack.ESI.Models.Shared;
 using R3MUS.Devpack.ESI.Models.Universe;
+using R3MUS.Devpack.Recruitment.Extensions;
 using R3MUS.Devpack.Recruitment.Helpers;
 using R3MUS.Devpack.Recruitment.Models;
 using R3MUS.Devpack.Recruitment.Repositories;
@@ -22,7 +23,7 @@ namespace R3MUS.Devpack.Recruitment.Services
         private readonly IESIEndpointRepository _esiRepository;
         private readonly IAccountStatusHelper _accountStatusHelper;
         private readonly IMailService _mailService;
-
+        
         public ApplicantService(IMapper mapper, IRecruitRepository recruitRepository, IESIEndpointRepository esiRepository,
             IAccountStatusHelper accountStatusHelper, IMailService mailService)
         {
@@ -64,6 +65,7 @@ namespace R3MUS.Devpack.Recruitment.Services
 
             result.Applicant.EmploymentHistory = _mapper.Map<List<CorporationModel>>(character.GetEmploymentHistory());
             result.Applicant.AccountStatus = _accountStatusHelper.GetAccountStatus(character.GetTrainingQueue(accessToken.AccessToken));
+            result.Applicant.SkillPoints = character.GetTrainedSkills(accessToken.AccessToken).TotalSkillPoints;
             
             var idList = new IdList { Ids = result.Applicant.EmploymentHistory.Select(s => s.Id).Distinct().ToList() };
             var corporationsSummary = idList.GetCorporationNames();
@@ -73,6 +75,11 @@ namespace R3MUS.Devpack.Recruitment.Services
             );
             result.Applicant.Corporation = result.Applicant.EmploymentHistory.First(w => w.Id == character.CorporationId);
             result.Applicant.Alliance = AllianceModel.GetAllianceInfo(character.AllianceId);
+
+            if(id != SSOUserManager.SiteUser.Character.Id)
+            {
+                result.Applicant.CurrentStatus = _recruitRepository.GetCurrentStatus(new CorporationAuthorisationModel() { CorporationId = SSOUserManager.SiteUser.CorporationId, RecruitId = result.Applicant.Id }).Status;
+            }
 
             return result;
         }
@@ -100,12 +107,12 @@ namespace R3MUS.Devpack.Recruitment.Services
             var clientIdList = new IdList() { Ids = results.Select(s => s.ClientId).Distinct().ToList() };
             var itemIdList = new IdList() { Ids = results.Select(s => (long)s.ItemTypeId).Distinct().ToList() };
 
-            var clientInfo = clientIdList.GetCharacterNames();
+            var clientInfo = clientIdList.GetEntityNames();
             var itemInfo = new List<ItemType>();
             itemIdList.Ids.ForEach(f => itemInfo.Add(new ItemType(f)));
 
             results.ForEach(f => {
-                f.ClientName = clientInfo.CharacterDetail.First(w => w.Id == f.ClientId).Name;
+                f.ClientName = clientInfo.First(w => w.Id == f.ClientId).Name;
                 f.ItemTypeName = itemInfo.First(w => w.Id == f.ItemTypeId).Name;
             });
 
