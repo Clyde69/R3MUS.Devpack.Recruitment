@@ -63,7 +63,11 @@ namespace R3MUS.Devpack.Recruitment.Services
                 Applicant = _mapper.Map<CharacterModel>(character)
             };
 
-            result.Applicant.HomeStation = GetHomeStation(character.Id);
+            try
+            {
+                result.Applicant.HomeStation = GetHomeStation(character.Id);
+            }
+            catch { }
             result.Applicant.EmploymentHistory = _mapper.Map<List<CorporationModel>>(character.GetEmploymentHistory());
             result.Applicant.AccountStatus = _accountStatusHelper.GetAccountStatus(character.GetTrainingQueue(accessToken.AccessToken));
             result.Applicant.SkillPoints = character.GetTrainedSkills(accessToken.AccessToken).TotalSkillPoints;
