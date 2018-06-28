@@ -19,17 +19,15 @@ namespace R3MUS.Devpack.Recruitment.Repositories
 
             return _databaseContext.Recruits.Where(w =>
                  w.TokenShare.Select(s => s.CorporationId).Contains(corporationId) 
-                 && !ignoreStatusInts.Contains(w.TokenShare.First(f => f.CorporationId == corporationId).StatusInt)).ToList();
+                 && !ignoreStatusInts.Contains(w.TokenShare.FirstOrDefault(f => f.CorporationId == corporationId).StatusInt)).ToList();
         }
 
         public List<Entities.Recruit> GetAllianceApplicants(long? allianceId)
         {
-            var ignoreStatusInts = new[] { 2, 4, 6 };
-
             return allianceId.HasValue
                 ? _databaseContext.Recruits.Where(w =>
                  w.TokenShare.Select(s => s.AllianceId).Contains(allianceId)
-                 && !ignoreStatusInts.Contains(w.TokenShare.First(f => f.CorporationId == allianceId).StatusInt)).ToList()
+                 && w.TokenShare.FirstOrDefault(f => f.AllianceId == allianceId).StatusInt == 4).ToList()
                 : new List<Entities.Recruit>();
         }
 

@@ -37,7 +37,7 @@ namespace R3MUS.Devpack.Recruitment.Profiles.Resolvers
                     Status = _recruitRepository.GetCurrentStatus(new CorporationAuthorisationModel()
                     {
                         CorporationId = f.Id,
-                        RecruitId = recruit.Id
+                        RecruitId = recruit.CharacterId
                     }).ToString()
                 });
             });

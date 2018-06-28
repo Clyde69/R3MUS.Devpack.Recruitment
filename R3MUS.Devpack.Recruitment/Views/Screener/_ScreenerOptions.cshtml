@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-6">
 		@Html.DropDownList("available-statuses", new SelectList(Enum.GetValues(typeof(R3MUS.Devpack.Recruitment.Enums.ApplicationStatus))),
-			Model.CurrentStatus.ToString(), new { @class = "form-control pull-right" })
+			Model.Applicant.Applicant.CurrentStatus.ToString(), new { @class = "form-control pull-right" })
 	</div>
 	<div class="col-md-6">
 		<button class="btn btn-primary" onclick="changeStatus(@R3MUS.Devpack.Recruitment.Helpers.SSOUserManager.SiteUser.CorporationId, @Model.Applicant.Applicant.Id)">Change Status</button>

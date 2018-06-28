@@ -15,6 +15,7 @@ namespace R3MUS.Devpack.Recruitment.Controllers.API
 
         public string Post(CorporationAuthorisationModel request)
         {
+            request.AllianceId = new ESI.Models.Corporation.Detail(request.CorporationId).AllianceId;
             return _recruitRepository.AddCorporation(request).ToString();
         }
 

@@ -55,7 +55,7 @@ namespace R3MUS.Devpack.Recruitment.Repositories
         public Enums.ApplicationStatus AddCorporation(CorporationAuthorisationModel request)
         {
             _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId).TokenShare
-                .Add(new TokenShare() { CorporationId = request.CorporationId, Status = ApplicationStatus.Applied  });
+                .Add(new TokenShare() { CorporationId = request.CorporationId, AllianceId = request.AllianceId, Status = ApplicationStatus.Applied  });
 
             _databaseContext.SaveChanges();
             return Enums.ApplicationStatus.Applied;
@@ -68,7 +68,13 @@ namespace R3MUS.Devpack.Recruitment.Repositories
 
         public ApplicationStatus GetCurrentStatus(CorporationAuthorisationModel request)
         {
-            return (ApplicationStatus)_databaseContext.TokenShares.First(w => w.RecruitId == request.RecruitId && w.CorporationId == request.CorporationId).StatusInt;
+            var recruit = _databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId);
+            var tokens = recruit.TokenShare;
+            var relevantToken = tokens.First(w => w.CorporationId == request.CorporationId);
+            return (ApplicationStatus)relevantToken.StatusInt;
+
+            return (ApplicationStatus)_databaseContext.Recruits.First(w => w.CharacterId == request.RecruitId)
+                .TokenShare.First(w => w.RecruitId == request.RecruitId && w.CorporationId == request.CorporationId).StatusInt;
         }
 
         public void DeleteCorporation(CorporationAuthorisationModel request)
