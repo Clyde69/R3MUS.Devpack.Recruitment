@@ -40,6 +40,7 @@ namespace R3MUS.Devpack.Recruitment.Controllers
         [Authorize]
         public ActionResult FinaliseOptions()
         {
+            ViewBag.Title = "Finalise Options";
             return View("ViewApplicant", new ApplicantPageViewModel()
             {
                 Applicant = _applicantService.GetCharacterViewModel(SSOUserManager.SiteUser.Character.Id),

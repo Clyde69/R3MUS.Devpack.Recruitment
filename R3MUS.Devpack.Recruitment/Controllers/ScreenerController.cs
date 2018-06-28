@@ -62,6 +62,7 @@ namespace R3MUS.Devpack.Recruitment.Controllers
         [Authorize]
         public ActionResult ViewApplicant(long id)
         {
+            ViewBag.Title = "Review Applicant";
             try
             {
                 return View("ViewApplicant", new ApplicantPageViewModel()

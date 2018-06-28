@@ -11,6 +11,7 @@ namespace R3MUS.Devpack.Recruitment.Models
     {
         public DateTime Birthday { get; set; }
         public long SkillPoints { get; set; }
+        public string HomeStation { get; set; }
 
         public string TotalSP
         {

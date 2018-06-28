@@ -1,10 +1,6 @@
 ﻿@model R3MUS.Devpack.Recruitment.ViewModels.ApplicantPageViewModel
 
-@{
-    ViewBag.Title = "Finalise Options";
-}
-
-<h2>Finalise Options</h2>
+<h2>@ViewBag.Title</h2>
 <div class="row">
 	@Html.Partial("_CharacterModelView", Model.Applicant.Applicant)
 	@if (Model.ViewMode == R3MUS.Devpack.Recruitment.Enums.Role.Applicant)

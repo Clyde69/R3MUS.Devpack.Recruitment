@@ -63,6 +63,7 @@ namespace R3MUS.Devpack.Recruitment.Services
                 Applicant = _mapper.Map<CharacterModel>(character)
             };
 
+            result.Applicant.HomeStation = GetHomeStation(character.Id);
             result.Applicant.EmploymentHistory = _mapper.Map<List<CorporationModel>>(character.GetEmploymentHistory());
             result.Applicant.AccountStatus = _accountStatusHelper.GetAccountStatus(character.GetTrainingQueue(accessToken.AccessToken));
             result.Applicant.SkillPoints = character.GetTrainedSkills(accessToken.AccessToken).TotalSkillPoints;
@@ -82,6 +83,23 @@ namespace R3MUS.Devpack.Recruitment.Services
             }
 
             return result;
+        }
+
+        public string GetHomeStation(long id)
+        {
+            var character = new ESI.Models.Character.Detail(id);
+            var endpoint = _esiRepository.GetByName("Applicant");
+            var accessToken = ESI.SingleSignOn.GetTokensFromRefreshToken(endpoint.ClientId, endpoint.SecretKey,
+                _recruitRepository.GetRefreshTokenForApplicant(id));
+            var homeLocation = character.GetCloneInformation(accessToken.AccessToken).HomeStation;
+            if(homeLocation.Type == "structure")
+            {
+                return new Structure(homeLocation.Id, accessToken.AccessToken).Name;
+            }
+            else
+            {
+                return new Station(homeLocation.Id).Name;
+            }
         }
 
         public List<WalletJournalViewModal> GetWalletJournal(long id)

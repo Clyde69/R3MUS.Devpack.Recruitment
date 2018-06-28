@@ -36,7 +36,9 @@ namespace R3MUS.Devpack.Recruitment.Services
                     ESI.Infrastructure.Scopes.Characters.ReadStanding,
                     ESI.Infrastructure.Scopes.Wallet.ReadCharacterWallet,
                     ESI.Infrastructure.Scopes.Skills.ReadSkills,
-                    ESI.Infrastructure.Scopes.Skills.ReadSkillQueue
+                    ESI.Infrastructure.Scopes.Skills.ReadSkillQueue,
+                    ESI.Infrastructure.Scopes.Universe.ReadStructures,
+                    ESI.Infrastructure.Scopes.Clones.ReadClones
                 });
         }
 
