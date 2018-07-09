@@ -32,7 +32,8 @@ function getMailHeaders() {
 }
 
 function corpSearch(ownerId) {
-	var corpName = $('#corpName').val();
+	try {
+		var corpName = $('#corpName').val();
 		var url = window.location.protocol + "//" + window.location.host + '/';
 		$.get(url + 'api/SearchCorporation?corporationName=' + corpName)
 			.done(function (data) {
@@ -46,6 +47,9 @@ function corpSearch(ownerId) {
 			.fail(function () {
 				alert('Cannot find a corporation called "' + corpName + '"');
 			});
+	} catch (e) {
+		alert(e.message);
+	}
 }
 
 function changeStatus(corpId, ownerId) {

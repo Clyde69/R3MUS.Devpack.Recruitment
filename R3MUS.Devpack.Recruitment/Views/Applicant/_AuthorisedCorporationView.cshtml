@@ -1,4 +1,5 @@
 ﻿@model R3MUS.Devpack.Recruitment.Models.CharacterModel
+
 <div class="row">
 	<div class="col-md-6" style="font-size: large;">
 		<h3>Sharing your information</h3>
@@ -8,13 +9,12 @@
 		You may search by either the complete corporation name or the tag.
 		<br />
 		<h4 class="alert-danger" style="text-align: center;">If you do not add a corporation here then you cannot be screened to become a member.</h4>
-		<div class="pull-right">
+		<div>
 			<input type="text" id="corpName" />
 			<button class="btn" onclick="corpSearch(@Model.Id)">Search</button>
 		</div>
 	</div>
 	<div class="col-md-6">
-		<h3>Approved Corporations &amp; Application Status</h3>
 		<ul id="approvedCorporations">
 			@foreach (var corporation in Model.AuthorisedCorporations)
 			{
